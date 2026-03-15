@@ -25,8 +25,14 @@ SECRET_KEY = 'django-insecure-6&n6nq44tarhf%z$fxoej62_e6(_$6bwl6gy6%-j@1+i5_)iuq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type('application/javascript', '.js', True)
+    mimetypes.add_type('text/css', '.css', True)
+
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = ['127.0.0.1',]
 
 # Application definition
 
@@ -39,9 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cart.apps.CartConfig',
     'shop.apps.ShopConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
