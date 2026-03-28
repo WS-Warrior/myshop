@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,5 +140,6 @@ CART_SESSION_ID = 'cart'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
-STRIPE_API_VERSION = '2024-04-10'
+stripe.api_key = config('STRIPE_SECRET_KEY')
+stripe.api_version = config('STRIPE_API_VERSION', default='2024-04-10')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')

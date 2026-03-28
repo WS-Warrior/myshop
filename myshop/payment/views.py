@@ -1,7 +1,7 @@
 from decimal import Decimal
 import stripe
 from django.conf import settings
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from orders.models import Order
 
@@ -10,7 +10,7 @@ from orders.models import Order
 # Create your views here.
 def payment_process(request):
     order_id = request.session.get('order_id', None)
-    order = get_list_or_404(Order, id=order_id)
+    order = get_object_or_404(Order, id=order_id)
 
     if request.method == 'POST':
         success_url = request.build_absolute_uri(reverse('payment:completed'))
